@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forside Alpha v0.2</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  </head>
+  <body>
+    <link rel="stylesheet" href="nettside.css" media="screen" />
+    <div id="bakgrunnForside">
+    </div>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+        </div>
+        <ul class="nav navbar-nav">
+    <ul>
+      <li class="active"><a href="forside.html">Startside</a></li>
+      <li><a href="spillregler.html">Regler</a></li>
+      <li><a href="story.html">Bakgrunnshistorie</a></li>
+      <li style="float:right"><a href="">Om oss</a></li>
+    </ul>
+  </div>
+</nav>
+    <br />
+    <br />
+
+
+      <h1 class="overskrift">Spillnavn</h1>
+      <br />
+      <br />
+      <br />
+
+      <div class="posisjonKnapp">
+        <button class="button" id = "Startspill">Start spill</button>
+      </div>
+    </div>
+    <script>
+      var StartSpill = document.getElementById("Startspill")
+
+      StartSpill.onclick = function(){
+        localStorage.removeItem("Game_Clearence");
+        localStorage.setItem('Game_Clearence',JSON.stringify(0))
+        window.location.href = "CollEndelig.html"
+
+
+      }
+    </script>
+  </body>
+</html>

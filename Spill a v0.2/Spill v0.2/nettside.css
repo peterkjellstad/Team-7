@@ -1,0 +1,128 @@
+body {
+  font-size: 16px;
+  font-family: Arial, Serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 60px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.active {
+  background-color: hotpink;
+}
+
+.overskrift {
+  text-align: center;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, Serif;
+}
+
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: hotpink;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  width: 50%;
+}
+
+.button:hover {
+  background-color: hotpink;
+}
+
+.button:active {
+  background-color: #d499ff;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.posisjonKnapp {
+  text-align: center;
+}
+
+#logo-heading {
+  color: hotpink;
+  font-family: "Times New Roman", Times, Serif;
+  font-size: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+
+.underoverskrift{
+  text-align: center;
+  font-family: "Times New Roman", Times, Serif;
+}
+
+.paragrafStart{
+  line-height: 1.5;
+  font-family: "Times New Roman", Times, Serif;
+  font-style: normal;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+  .prinsessen {
+    float: right;
+
+
+  }
+
+.paragraf{
+line-height: 1.5;
+font-family: "Times New Roman", Times, Serif;
+font-style: normal;
+font-size: 20px;
+text-align: center;
+}
+#bakgrunn {
+  content: "";
+  background: url(prinsessetest.jpg);
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+#bakgrunnForside {
+  content: "";
+  background: url(prinsessetest.jpg);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}

@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Alpha v0.2</title>
+    <style>
+    container {
+	text-align: center;
+}
+        #minCanvas { border:20px solid DarkGreen;
+
+       margin-left: 25%;
+       /*margin-top: 5%*/
+
+        }
+
+    </style>
+  <link rel="stylesheet" href="nettside.css" media="screen">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+      </div>
+      <ul class="nav navbar-nav">
+  <ul>
+    <li><a href="forside.html">Startside</a></li>
+    <li class="active"><a href="spillregler.html">Regler</a></li>
+    <li><a href="story.html">Bakgrunnshistorie</a></li>
+    <li style="float:right"><a href="">Om oss</a></li>
+  </ul>
+  </div>
+  </nav>
+  <img id="Prins" src="Prinsesse3.png" width ="0" height="0">
+   <div id="container">
+
+
+    <canvas width="780" height="520" id="minCanvas"></canvas>
+  </div>
+
+    <script>
+  //  var test =JSON.parse(localStorage.getItem("Ga"))
+  //  console.log(test);
+
+        var Game_Clearence = JSON.parse(localStorage.getItem("Game_Clearence"));
+
+        console.log("Fra localStorage: " + Game_Clearence);
+        var minCanvas = document.getElementById("minCanvas");
+        var Prins = document.getElementById("Prins");
+        Prins.style.transform = "scale(0)"; //øker bilde til 1 i størrelse.
+
+        var ctx = minCanvas.getContext("2d");
+        var theGameIsOn = true; //Global variabel
+      //  var fartsokning =1;
+        var bane = { //Objektet bane
+            bredde : minCanvas.width, //Bredden lik canvas
+            hoyde : minCanvas.height,
+            gressfarge : "DarkGreen",
+            linjefarge : "White",
+            linjetykkelse : 4,
+            Vegg1bredde:minCanvas.width*0.8,
+            Vegg1Hoyde:minCanvas.width*0.1,
+            Vegg1startA: 0,
+            Vegg1startB: 100
+
+        };
+        var ball = { //Objektet ball
+            radius : 7,
+            xpos: bane.bredde-60, //x-posisjonen ved start
+            ypos:100, //y-posisjonen ved start
+            farge: "yellow",
+            xretning: 0, //Mot venstre
+            yretning: 0, //Nedover
+            xfart: 4,
+            yfart: 4
+        };
+        var racket = {
+            "bredde" : 50,
+            "hoyde" : 50,
+            "farge" : "Pink",
+            "xpos" : 0,
+            "ypos" : 0,
+            "xretning" : 0, //Hvilken vei racketen beveger seg
+            "xfart" : 5, //Piksler racketen flytter seg
+            "yretning" : 0, //Hvilken vei racketen beveger seg
+            "yfart" : 5 //Piksler racketen flytter seg
+        };
+
+        console.log(ball.xfart);
+        function tegnBane() { //Funksjonen som tegner banen
+
+
+          /*  ctx.fillStyle = bane.gressfarge; //Farge på gresset
+            ctx.fillRect(0, 0, bane.bredde, bane.hoyde); //Gresset*/
+           var background = new Image();
+           background.src ="skog1.png";
+            //// Make sure the image is loaded first otherwise nothing will draw.
+            background.onload = function(){
+              ctx.drawImage(background,0,0); //tegner bildet over
+            }
+           ctx.fillStyle = "cyan"//tegner den blå veggen
+          ctx.fillRect(bane.Vegg1startA, bane.Vegg1startB, bane.Vegg1bredde, bane.Vegg1Hoyde)
+        }
+        function tegnBall() {
+            ctx.beginPath(); //Start tegningen av buen
+            ctx.arc(ball.xpos, ball.ypos, ball.radius, 0, Math.PI * 2); //Tegner en sirkel
+            ctx.closePath(); //Lukker sirkelbuen
+            ctx.fillStyle = ball.farge; //Setter fargen
+            ctx.fill(); //Fyller sirkelen med fargen
+          //  ball.xpos = ball.xpos + Math.pow(ball.xfart,fartsokning) * ball.xretning; //Endrer x-posisjon
+          //  ball.ypos = ball.ypos + Math.pow(ball.yfart,fartsokning) * ball.yretning; //Endrer y-posisjon
+            //fartsokning+=0.0005; //gjør at farten øker
+        }
+var Prins;
+        function tegnRacket() {
+
+            ctx.fillStyle = racket.farge; //Farge på racketen
+
+            ctx.drawImage(Prins ,racket.xpos, racket.ypos, racket.bredde, racket.hoyde); //Tegner opp racketen
+
+
+
+            if (racket.ypos <= 0 && racket.yretning === -1) { //vegg opp
+                return; //Avslutter funksjonen
+            }
+            if (racket.ypos + racket.hoyde >= bane.hoyde && racket.yretning === 1) {//vegg ned
+                return; //Avslutter funksjonen
+            }
+            if (racket.xpos <= 0 && racket.xretning === -1) {//veg venstre
+                return; //Avslutter funksjonen
+            }
+            if (racket.xpos + racket.bredde >= bane.bredde && racket.xretning === 1) {//vegg til høyre
+                return; //Avslutter funksjonen
+            }
+
+            racket.ypos = racket.ypos + (racket.yfart * racket.yretning); //Posisjonen til karakteren blir her regnet ut, yfart forteller hvor fort den beveger seg,  og yretning hvilken retning. Basert på den tidligere posisjonen kan den regne ut hva den nye er.
+            racket.xpos = racket.xpos + (racket.xfart * racket.xretning);
+        }
+
+
+        function sjekkOmBallTrefferVegg() {
+            if(ball.xpos <= ball.radius) { //Venstre vegg
+                ball.xretning = 1; //Ballen går til høyre når den har truffet venstre vegg
+            }
+            if(ball.xpos + ball.radius >= bane.bredde) { //Høyre vegg
+                ball.xretning = -1; //Ballen går til venstre når den har truffet høyre vegg
+            }
+            if(ball.ypos + ball.radius >= bane.hoyde) { //Nedre vegg
+                ball.yretning = -1; //Ballen går oppover når den har truffet nedre vegg
+            }
+            if(ball.ypos <= ball.radius) { //Øvre vegg
+                ball.yretning = 1; //Ballen skal gå nedover etter at den har truffet øvre vegg
+            }
+
+        }
+        function sjekkOmBallTrefferRacket() {
+            var ballenErTilVenstre = ball.xpos + ball.radius < racket.xpos;
+            var ballenErtilHoyre = ball.xpos - ball.radius > racket.xpos + racket.bredde;
+            var ballenErOver = ball.ypos + ball.radius < racket.ypos;
+            var ballenErUnder = ball.ypos - ball.radius > racket.ypos + racket.hoyde;
+            if(!ballenErTilVenstre && ! ballenErtilHoyre && ! ballenErOver && ! ballenErUnder) {
+              // siden ballen kan være på alle sider av racketen, er det viktig at vi sjekker alle posisjoner
+                theGameIsOn=false;//vi deatktiver det spillet vi nå bruker.
+                //Jumpman();
+                    window.location.href = "SpillDukk.html" // Vi åpner minigamet vårt.
+
+            }
+
+        }
+        function hitdetect(){
+          var looo= 1;
+          var hogreforObst = racket.xpos < bane.Vegg1bredde;
+          var overforObst = racket.ypos > bane.Vegg1Hoyde;
+          var underforObst = racket.ypos < bane.Vegg1Hoyde + bane.Vegg1startB;
+
+          if(overforObst && underforObst && hogreforObst){
+            console.log("PLLSSS")
+
+
+
+          }
+
+        }
+        function gameLoop() { //Funksjonen kaller opp alle de andre funksjonene
+            tegnBane();
+
+            if(Game_Clearence == 0){
+              //Dersom 'Game_Clearence' har verdien 0, betyr det at vi ikke har vunnet noen baner ennå. derfor tegnes da den første ballen
+        //  console.log("TEST");
+            tegnBall();
+            sjekkOmBallTrefferRacket();}
+
+            tegnRacket();
+          //  sjekkOmBallTrefferVegg();
+
+            hitdetect()
+            if (theGameIsOn) {
+                requestAnimationFrame(gameLoop); // Dersom theGameIsOn = true, henter vi loopen og fortsetter å oppdtadetere spillet
+            }
+        }
+        gameLoop();
+        document.onkeydown = function(evt) {
+            var tastekode = evt.keyCode;
+            if(tastekode === 37) { //Pil opp
+                racket.xretning = -1; //Racketen vil flytte seg oppover
+
+            }
+            if(tastekode === 38) { //Pil opp
+                racket.yretning = -1; //Racketen vil flytte seg oppover
+
+            }
+            if(tastekode === 39) { //Pil høyre
+                racket.xretning = 1; //Racketen vil flytte seg oppover
+
+            }
+            if(tastekode === 40) { //Pil ned
+                racket.yretning = 1; //Racketen flytter seg nedover
+
+            }
+        }
+        document.onkeyup = function(evt) {
+            var tastekode = evt.keyCode; // forteller at nå vi slutter å trykke knappen beveger vi oss ikke
+            if(tastekode === 37 && racket.xretning === -1) { racket.xretning = 0;}
+            if(tastekode === 38 && racket.yretning === -1) { racket.yretning = 0;}
+            if(tastekode === 39 && racket.xretning === 1) { racket.xretning = 0;}
+            if(tastekode === 40 && racket.yretning === 1) { racket.yretning = 0;}
+            if(tastekode === 13 ) {  Game_Clearence = 0; console.log(Game_Clearence);} //Gjør at ballen kommer opp, som er et kompromiss vi må gjøre til jeg får en startskjerm.
+        }
+
+
+
+    </script>
+</body>
+</html>
