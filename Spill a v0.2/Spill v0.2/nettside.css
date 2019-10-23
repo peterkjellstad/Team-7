@@ -1,6 +1,6 @@
 body {
-  font-size: 16px;
-  font-family: Arial, Serif;
+  font-size: 20px;
+  font-family: "Times New Roman", Times, Serif;
 }
 
 ul {
@@ -12,6 +12,8 @@ ul {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
+
+
 }
 
 li {
@@ -24,6 +26,8 @@ li a {
   text-align: center;
   padding: 14px 60px;
   text-decoration: none;
+  font-family: "Daddy Rewind", Times, Serif;
+  font-size: 20px;
 }
 
 li a:hover {
@@ -36,8 +40,8 @@ li a:hover {
 
 .overskrift {
   text-align: center;
-  font-weight: bold;
-  font-family: "Times New Roman", Times, Serif;
+  font-family: "Daddy Rewind", Times, Serif;
+  font-size: 65px;
 }
 
 .button {
@@ -54,6 +58,7 @@ li a:hover {
   border-radius: 15px;
   box-shadow: 0 9px #999;
   width: 50%;
+  font-weight: bold;
 }
 
 .button:hover {
@@ -71,17 +76,16 @@ li a:hover {
 
 #logo-heading {
   color: hotpink;
-  font-family: "Times New Roman", Times, Serif;
+  font-family: "Daddy Rewind", Times, Serif;
   font-size: 100px;
   text-align: center;
-  text-transform: uppercase;
   font-weight: bold;
 }
 
 
 .underoverskrift{
   text-align: center;
-  font-family: "Times New Roman", Times, Serif;
+  font-family: "Daddy Rewind", Times, Serif;
 }
 
 .paragrafStart{
